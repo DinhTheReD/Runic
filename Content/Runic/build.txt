@@ -1,0 +1,3 @@
+displayName = Rune Knight Class Mod
+author = Dinh
+version = 0.1
