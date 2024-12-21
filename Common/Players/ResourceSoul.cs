@@ -19,7 +19,7 @@ namespace Runic.Common.Players
 
     public class ResourceSoul : ModPlayer
     {
-
+        public int SoulProjICD = 0;
         public int SoulCurrent;
         public const int DefaultSoulMax = 20;
         public int SoulMax;
@@ -89,7 +89,7 @@ namespace Runic.Common.Players
                 SoulRegenTimer = 0;
                 
             }
-
+            SoulProjICD--;
             SoulCurrent = Utils.Clamp(SoulCurrent, 0, SoulMax2);
 
             

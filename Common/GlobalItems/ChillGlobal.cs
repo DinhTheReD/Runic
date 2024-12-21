@@ -44,138 +44,22 @@ namespace Runic.Common.GlobalItems
 
         }
 
-
-
-
-
-        public override bool Shoot(Item item, Terraria.Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override void ModifyShootStats(Item item, Terraria.Player player, ref Vector2 position, ref Vector2 velocity, ref System.Int32 type, ref System.Int32 damage, ref System.Single knockback)
         {
-
-
             var modPlayer = Main.LocalPlayer.GetModPlayer<ResourceSoul>();
-
-
-
-
-            if (item.prefix == ModContent.PrefixType<Chilled>())// && item.useStyle == ItemUseStyleID.Thrust)
-
+            if (item.prefix == ModContent.PrefixType<Chilled>())
             {
-
-                
-
-
-
-
-                if  (item.shoot == ModContent.ProjectileType<DummyProj>())
+                if (player.altFunctionUse == 2 && modPlayer.SoulCurrent >= 5 && modPlayer.SoulProjICD <= 0)
                 {
-
-
-                   
-
-
-                    if (player.altFunctionUse == 2 && modPlayer.SoulCurrent < 5)
-                    {
-
-
-                    
-
-                        return false;
-
-
-                    }
-
-
-
-
-
-                    if (player.altFunctionUse == 2 && modPlayer.SoulCurrent >= 5)
-                    {
-
-
-                        modPlayer.SoulCurrent = modPlayer.SoulCurrent - 5;
-
-
-
-
-                        Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<ChillProj>(), damage, knockback, player.whoAmI);
-
-
-
-
-
-                        SoundEngine.PlaySound(new SoundStyle("Runic/Assets/Sounds/Chill_Shot"));
-
-
-
-
-
-
-                    }
-
-
-
-
-
-
-                }
-
-
-
-
-                if (player.altFunctionUse == 2 && modPlayer.SoulCurrent < 5)
-                {
-
-
-
-                    return false;
-
-
-                }
-
-
-
-
-
-                if (player.altFunctionUse == 2 && modPlayer.SoulCurrent >= 5)
-                {
-
-
+                    modPlayer.SoulProjICD = item.useTime;
                     modPlayer.SoulCurrent = modPlayer.SoulCurrent - 5;
-
-
-
-                    
-
-
-
-                    Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<ChillProj>(), damage, knockback, player.whoAmI);
-
-
-
+                    type = ModContent.ProjectileType<ChillProj>();
                     SoundEngine.PlaySound(new SoundStyle("Runic/Assets/Sounds/Chill_Shot"));
-
-
-
-
-
-
                 }
-
-
-
-
-
-
             }
-
-
-
-
-
-
-
-            return base.Shoot(item, player, source, position, velocity, type, damage, knockback);
         }
+
+        
 
 
 

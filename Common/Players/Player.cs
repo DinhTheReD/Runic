@@ -23,7 +23,7 @@ namespace Runic.Common.Players
 
 
 
-            if (Main.LocalPlayer.HasBuff<FrostBorne>() == true)
+            if (Main.LocalPlayer.HasBuff<FrostBorne>() == true && modPlayer.SoulCurrent < modPlayer.SoulMax2)
             {
 
 
@@ -35,7 +35,6 @@ namespace Runic.Common.Players
 
 
         }
-
 
 
 
