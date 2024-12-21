@@ -1,0 +1,18 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/Runic/FileContentIndex
+/.vs/slnx.sqlite
+/obj/Debug/net8.0/Runic.AssemblyInfo.cs
+/obj/Debug/net8.0/Runic.AssemblyInfoInputs.cache
+/obj/Debug/net8.0/Runic.assets.cache
+/obj/Debug/net8.0/Runic.csproj.AssemblyReference.cache
+/obj/Debug/net8.0/Runic.GeneratedMSBuildEditorConfig.editorconfig
+/obj/Release/net8.0/.NETCoreApp,Version=v8.0.AssemblyAttributes.cs
+/obj/Release/net8.0/Runic.AssemblyInfo.cs
+/obj/Release/net8.0/Runic.AssemblyInfoInputs.cache
+/obj/Release/net8.0/Runic.assets.cache
+/obj/Release/net8.0/Runic.csproj.AssemblyReference.cache
+/obj/Release/net8.0/Runic.GeneratedMSBuildEditorConfig.editorconfig
+/.gitignore
