@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "rQsB+CEYeSAyFRUMeKpQHL1Oqypn/AYcqXOp5ffUg6dGRpXkXlUbAcNixkX0yO7R1/rTzh+zmoPQNRaZEw+pKA==",
+  "dgSpecHash": "Vh6fdrI+L/I=",
   "success": true,
-  "projectFilePath": "C:\\Users\\matti\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Runic\\Runic.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\Danie\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Runic\\Runic.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Danie\\.nuget\\packages\\tmodloader.codeassist\\0.1.5\\tmodloader.codeassist.0.1.5.nupkg.sha512"
+  ],
   "logs": []
 }

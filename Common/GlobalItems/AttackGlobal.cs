@@ -22,7 +22,7 @@ namespace Runic.Common.GlobalItems
     {
 
 
-        public virtual bool CanUseItem(Terraria.Player player, Item item)
+        public virtual bool CanUseiten(Terraria.Player player, Item item)
         {
 
             var modPlayer = Main.LocalPlayer.GetModPlayer<ResourceSoul>();
