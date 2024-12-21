@@ -216,7 +216,7 @@ namespace Runic.Common.GlobalItems
 
 
 
-
+        /*
         public override bool Shoot(Item item, Terraria.Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             
@@ -347,7 +347,7 @@ namespace Runic.Common.GlobalItems
             return base.Shoot(item, player, source, position, velocity, type, damage, knockback);
         }
 
-
+        */
 
 
 
