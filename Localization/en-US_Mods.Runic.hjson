@@ -229,6 +229,7 @@ Prefixes: {
 	Focused.DisplayName: Focused
 	Infamous.DisplayName: Infamous
 	Eminent.DisplayName: Eminent
+	Sundering.DisplayName: Sundering
 }
 
 Buffs: {
@@ -253,4 +254,6 @@ DamageClasses.RunicDamage.DisplayName: Runic Damage
 Projectiles: {
 	ChillProj.DisplayName: Chill Proj
 	DummyProj.DisplayName: Dummy Proj
+	LightningArcVisual.DisplayName: Lightning Arc Visual
+	ThrownTile.DisplayName: Thrown Tile
 }
