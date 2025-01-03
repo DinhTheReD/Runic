@@ -5,6 +5,7 @@ using System;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria;
+using Runic.Content.Damageclass;
 
 namespace Runic.Common.Players
 {
@@ -15,29 +16,26 @@ namespace Runic.Common.Players
     {
 
 
-        public override void OnHitAnything(float x, float y, Entity victim)
+
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            base.OnHitAnything(x, y, victim);
+            base.OnHitNPC(target, hit, damageDone);
             var modPlayer = Main.LocalPlayer.GetModPlayer<ResourceSoul>();
 
+            
 
 
-
-            if (Main.LocalPlayer.HasBuff<FrostBorne>() == true)
+            if (Main.LocalPlayer.HasBuff<FrostBorne>() == true &&
+                hit.DamageType == DamageClass.Melee)
             {
-
-
                 // need to balance they return value
                 modPlayer.SoulCurrent++;
             }
 
 
 
-
         }
-
-
-
 
 
         public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)

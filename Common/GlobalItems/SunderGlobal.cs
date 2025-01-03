@@ -8,6 +8,8 @@ using Runic.Content.Projectiles;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
+using System;
+using Runic.Content.Damageclass;
 
 
 //using Runic.Common.Players;
@@ -50,12 +52,55 @@ namespace Runic.Common.GlobalItems
             {
                 var modPlayer = Main.LocalPlayer.GetModPlayer<ResourceSoul>();
                 int NewProjType = ModContent.ProjectileType<ChillProj>();
+                int totalshield = 4;
+                int ProjectileDamage = (int)(3 + (player.GetDamage<RunicDamage>().ApplyTo(1)/.2f));
+                float ProjectileKnockBack = 4 + player.GetDamage<RunicDamage>().ApplyTo(3);
+                Vector2 ProjectileVelocity = Vector2.UnitX * 6.5f;
                 SoundStyle NewSound = new SoundStyle("Runic/Assets/Sounds/Chill_Shot");
-                if (player.altFunctionUse == 2 && modPlayer.SoulCurrent >= 5)
+                if (player.altFunctionUse == 2 && modPlayer.SoulCurrent >= 15)
                 {
-                    item.holdStyle = 2;
-                    player.itemTime = 120;
-                    player.itemAnimation = 120;
+                    modPlayer.SoulCurrent = modPlayer.SoulCurrent - 15;
+                    {
+                        int numprojs = 0;
+                        while (numprojs < totalshield) 
+                        {
+                            numprojs++;
+                            Vector2 TileTry = Vector2.Zero;
+                            TileTry.X += (Vector2.UnitX.RotatedByRandom(Math.PI)).X;
+                            TileTry.Y += (Vector2.UnitX.RotatedByRandom(Math.PI)).Y;
+                            TileTry *= 320;
+                            int j = 0;
+                            while (!OkayTileSpot(player.position + TileTry) && j < 200) //Find a legal spot to rip a tile from
+                            {
+                                j++;
+                                TileTry = Vector2.Zero;
+                                TileTry.X += (Vector2.UnitX.RotatedByRandom(Math.PI)).X;
+                                TileTry.Y += (Vector2.UnitX.RotatedByRandom(Math.PI)).Y;
+                                TileTry *= 320;
+                            }
+                            if (j < 200) //If we find a viable spot, spawn the tile.
+                            {
+
+                                int newproj = Projectile.NewProjectile(item.GetSource_FromThis(), player.position + TileTry, ProjectileVelocity,
+                            ModContent.ProjectileType<ThrownTile>(), ProjectileDamage, ProjectileKnockBack, player.whoAmI);
+                                Projectile tileproj = Main.projectile[newproj];
+                                tileproj.penetrate = 30;
+                                tileproj.timeLeft = 1800;
+                                int ProjID = Projectile.NewProjectile(item.GetSource_FromThis(), player.position + TileTry, ProjectileVelocity, 
+                                    ModContent.ProjectileType<LightningArcVisual>(), 0, ProjectileKnockBack, player.whoAmI);
+                                Projectile proj = Main.projectile[ProjID];
+                                proj.ai[0] = player.Center.X;
+                                proj.ai[1] = player.Center.Y;
+                                proj.scale = 1.1f;
+                                if (Main.netMode == NetmodeID.MultiplayerClient && Main.myPlayer == proj.owner)
+                                {
+                                    NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, newproj);
+                                }
+                            }
+                        }
+                        Projectile.NewProjectile(item.GetSource_FromThis(), position, velocity, NewProjType, damage, knockback, player.whoAmI);
+                        SoundEngine.PlaySound(NewSound);
+                    }
                 }
             }
         }
@@ -65,12 +110,37 @@ namespace Runic.Common.GlobalItems
 
         public override bool AltFunctionUse(Item item, Terraria.Player player)
         {
-            if (item.prefix == ModContent.PrefixType<Chilled>()) //makes sure non special prefixed items dont have an alt use 
+            if (item.prefix == ModContent.PrefixType<Sundering>()) //makes sure non special prefixed items dont have an alt use 
             {
 
                 return true;
             }
 
+            return false;
+        }
+        public bool OkayTileSpot(Vector2 position)
+        {
+            Vector2 tilelocation = Vector2.Zero;
+            tilelocation.X = (int)(position.X / 16);
+            tilelocation.Y = (int)(position.Y / 16);
+            Tile targetile = Main.tile[(int)tilelocation.X, (int)tilelocation.Y];
+            if (targetile.HasTile)
+            {
+                Item ItemChosen = null;
+                for (int i = 0; i < ItemLoader.ItemCount; i++)
+                {
+                    if (ContentSamples.ItemsByType[i].createTile == targetile.TileType && ContentSamples.ItemsByType[i].consumable == true)
+                    {
+                        ItemChosen = ContentSamples.ItemsByType[i];
+                        break;
+                    }
+                }
+                if (ItemChosen == null)
+                {
+                    return false;
+                }
+                return true;
+            }
             return false;
         }
 
